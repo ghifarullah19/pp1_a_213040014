@@ -1,0 +1,12 @@
+package pertemuan08_List;
+
+public class StrukturListTest {
+	public static void main(String[] args) {
+		StrukturList list;
+		
+		System.out.println("Latihan 2");
+		list = new StrukturList();
+		list.addHead(new Matakuliah("IF001", "Dasar Pemrograman", 4));
+		list.addHead(new Matakuliah("IF002", "Pemrograman Web", 4));
+    }
+}

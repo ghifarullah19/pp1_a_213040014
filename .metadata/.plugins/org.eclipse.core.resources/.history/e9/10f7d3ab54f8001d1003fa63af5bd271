@@ -1,0 +1,59 @@
+package pertemuan10_Stack;
+
+public class StackMain {
+    public static void main(String[] args) {
+        StrukturStack stack = new StrukturStack(3);
+
+        // Latihan 4
+        System.out.println("### Sebelum push 3x ###");
+        System.out.println("size: " + stack.size());
+        System.out.println("isEmpty: " + stack.isEmpty());
+        System.out.println("isFull: " + stack.isFull());
+        System.out.println("Top: " + stack.top());
+        stack.displayElement();
+
+        // Latihan 4
+        stack.push(2);
+        stack.push(4);
+        stack.push(1);
+
+        // Latihan 4
+        System.out.println("\n### Sesudah push 3x ###");
+        System.out.println("size: " + stack.size());
+        System.out.println("isEmpty: " + stack.isEmpty());
+        System.out.println("isFull: " + stack.isFull());
+        System.out.println("Top: " + stack.top());
+        stack.displayElement();
+//        
+//        stack = new StrukturStack(3);
+//
+//        // Latihan 5
+//        System.out.println("### Sebelum push 4x ###");
+//        System.out.println("size: " + stack.size());
+//        System.out.println("isEmpty: " + stack.isEmpty());
+//        System.out.println("isFull: " + stack.isFull());
+//        System.out.println("Top: " + stack.top());
+//
+//        // Latihan 5
+//        stack.push(2);
+//        stack.push(4);
+//        stack.push(1);
+//
+//        // Latihan 5
+//        System.out.println("\n### Sesudah push 4x ###");
+//        System.out.println("size: " + stack.size());
+//        System.out.println("isEmpty: " + stack.isEmpty());
+//        stack.displayElement();
+//        System.out.println("Front: " + stack.front());
+//
+//        // Tugas
+//        stack.pop();
+//
+//        // Tugas
+//        System.out.println("\n### Sesudah pop 1x ###");
+//        System.out.println("size: " + stack.size());
+//        System.out.println("isEmpty: " + stack.isEmpty());
+//        stack.displayElement();
+//        System.out.println("Front: " + stack.front());
+    }
+}

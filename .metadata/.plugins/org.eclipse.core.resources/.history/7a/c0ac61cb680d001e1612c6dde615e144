@@ -1,0 +1,304 @@
+package studi_kasus;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class MainProgram {
+
+    // prosedur membuat vertex/node/kota
+    public void createVertex(Graph G, String a) {
+        Vertex newVertex = new Vertex();
+        newVertex.idVertex = a;
+        newVertex.edge = null;
+        newVertex.next = null;
+
+        if (G.first == null) {
+            G.first = newVertex;
+        } else {
+            Vertex akhir = G.first;
+            while (akhir.next != null) {
+                akhir = akhir.next;
+            }
+            akhir.next = newVertex;
+        }
+    }
+
+    // prosedur menambah edge/garis/jalur
+    public void addEdge(Vertex awal, Vertex akhir, int nilaiedge) {
+        Edge newEdge = new Edge();
+        newEdge.cost = nilaiedge;
+        newEdge.next = null;
+        newEdge.tujuan = akhir;
+
+        if (awal.edge == null) {
+            awal.edge = newEdge;
+        } else {
+            Edge edgeAkhir = awal.edge;
+            while (edgeAkhir.next != null) {
+                edgeAkhir = edgeAkhir.next;
+            }
+            edgeAkhir.next = newEdge;
+        }
+    }
+
+    // prosedur mencetak graph
+    public void cetakGraph(Graph G) {
+        Vertex tempVertex = G.first;
+        if (tempVertex != null) {
+            while (tempVertex != null) {
+                System.out.printf("\n%s \n", tempVertex.idVertex);
+                Edge tempEdge = tempVertex.edge;
+
+                while (tempEdge != null) {
+                    System.out.printf("terhubung dengan %s, dengan cost %d\n", tempEdge.tujuan.idVertex, tempEdge.cost);
+                    tempEdge = tempEdge.next;
+                }
+                tempVertex = tempVertex.next;
+            }
+        } else {
+            System.out.printf("Graph Kosong");
+        }
+    }
+
+    // prosedur mencari vertex/node/kota
+    public Vertex searchVertex(Graph G, String c) {
+        Vertex hasil = null;
+        Vertex bantu = G.first;
+
+        int ketemu = 0;
+        while ((bantu != null) && ketemu == 0) {
+            if (bantu.idVertex.equals(c)) {
+                hasil = bantu;
+                ketemu = 1;
+            } else {
+                bantu = bantu.next;
+            }
+        }
+        return hasil;
+    }
+
+    // prosedur menghapus semua jalur dari kota
+    public void deleteAll(Vertex awal) {
+        Edge bantu;
+        bantu = awal.edge;
+        Edge hapus;
+
+        while (bantu != null) {
+            hapus = bantu;
+            bantu = bantu.next;
+            awal.edge = bantu;
+            hapus.next = null;
+        }
+    }
+
+    // prosedur menghapus edge/garis/jalur
+    public void deleteedge(String ctujuan, Vertex awal) {
+        Edge hapus = awal.edge;
+
+        if (hapus != null) {
+            Edge prev = null;
+            int ketemu = 0;
+
+            while ((hapus != null) && (ketemu == 0)) {
+                if (hapus.tujuan.idVertex.equals(ctujuan)) {
+                    ketemu = 1;
+                } else {
+                    prev = hapus;
+                    hapus = hapus.next;
+                }
+            }
+
+            if (ketemu == 1) {
+                if (prev == null) {
+                    awal.edge = hapus.next;
+                    hapus.next = null;
+                } else {
+                    prev.next = hapus.next;
+                    hapus.next = null;
+                }
+            }
+        } else {
+            System.out.printf("tidak ada edge Vertex tujuan \n");
+        }
+    }
+
+    // prosedur menghapus vertex/node/kota
+    public void deleteVertex(String c, Graph G) {
+        Vertex hapus = G.first;
+
+        if (hapus != null) {
+            Vertex prev = null;
+            int ketemu = 0;
+
+            while ((hapus != null) && (ketemu == 0)) {
+                if (hapus.idVertex.equals(c)) {
+                    ketemu = 1;
+                } else {
+                    prev = hapus;
+                    hapus = hapus.next;
+                }
+            }
+
+            if (ketemu == 1) {
+                Vertex bantu;
+                bantu = G.first;
+
+                while (bantu != null) {
+                    if (bantu != hapus) {
+                        deleteedge(hapus.idVertex, bantu);
+                    }
+                    bantu = bantu.next;
+                }
+                deleteAll(hapus);
+
+                if (prev == null) {
+                    G.first = hapus.next;
+                    hapus.next = null;
+                } else {
+                    if (hapus.next == null) {
+                        prev.next = null;
+                    } else {
+                        prev.next = hapus.next;
+                        hapus.next = null;
+                    }
+                }
+            } else {
+                System.out.printf("Tidak ada Vertex dengan info karakter masukan\n");
+            }
+        } else {
+            System.out.printf("Tidak ada Vertex dengan info karakter masukan\n");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
+        MainProgram program = new MainProgram();
+        Graph graph = new Graph();
+        Vertex vertexNamaKotaAwal = new Vertex();
+        Vertex vertexNamaKotaAkhir = new Vertex();
+        String namaKota;
+        String namaKotaAwal;
+        String namaKotaAkhir;
+        Vertex[] kota;
+        int jumlahVertex = 0;
+        int jumlahEdge = 0;
+        int cost = 0;
+        int menu = 0;
+
+        do {
+            System.out.println("===== PROGRAM GRAPH JALUR PENGHUBUNG KOTA =====");
+            System.out.println("1. Tambah Kota");
+            System.out.println("2. Tambah Jalur Antarkota");
+            System.out.println("3. Hapus Kota");
+            System.out.println("4. Hapus Jalur Antarkota");
+            System.out.println("5. Hapus Semua Jalur dari Kota");
+            System.out.println("6. Cetak Graph");
+            System.out.println("0. Keluar");
+            System.out.print("Masukan Pilihan: ");
+            menu = sc.nextInt();
+
+            switch (menu) {
+                case 1:
+                    System.out.println("=== TAMBAH KOTA ===");
+                    System.out.print("Masukan jumlah kota: ");
+                    jumlahVertex = sc.nextInt();
+                    kota = new Vertex[jumlahVertex];
+
+                    for (int i = 0; i < jumlahVertex; i++) {
+                        try {
+                            System.out.print("--- Masukan nama kota: ");
+                            namaKota = br.readLine();
+                            program.createVertex(graph, namaKota);
+                            kota[i] = program.searchVertex(graph, namaKota);
+                            System.out.println();
+                        } catch (Exception e) {
+                            System.out.println("Terjadi kesalahan: " + e);
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("=== TAMBAH JALUR ANTAR KOTA ===");
+                    System.out.print("Masukan jumlah jalur yang ingin ditambah: ");
+                    jumlahEdge = sc.nextInt();
+
+                    for (int i = 0; i < jumlahEdge; i++) {
+                        try {
+                            System.out.print("--- Masukan nama kota awal jalur: ");
+                            namaKotaAwal = br.readLine();
+                            System.out.print("--- Masukan nama kota akhir jalur (tujuan): ");
+                            namaKotaAkhir = br.readLine();
+                            System.out.print("--- Masukan cost jalur antar kota: ");
+                            cost = sc.nextInt();
+                            vertexNamaKotaAwal = program.searchVertex(graph, namaKotaAwal);
+                            vertexNamaKotaAkhir = program.searchVertex(graph, namaKotaAkhir);
+                            program.addEdge(vertexNamaKotaAwal, vertexNamaKotaAkhir, cost);
+                        } catch (Exception e) {
+                            System.out.println("Terjadi kesalahan: " + e);
+                        }
+                    }
+                    break;
+                case 3:
+                    System.out.println("=== HAPUS KOTA ===");
+                    System.out.print("Masukan jumlah kota: ");
+                    jumlahVertex = sc.nextInt();
+
+                    for (int i = 0; i < jumlahVertex; i++) {
+                        try {
+                            System.out.print("--- Masukan nama kota: ");
+                            namaKota = br.readLine();
+                            program.deleteVertex(namaKota, graph);
+                            System.out.println();
+                        } catch (Exception e) {
+                            System.out.println("Terjadi kesalahan: " + e);
+                        }
+                    }
+                    break;
+                case 4:
+                    System.out.println("=== HAPUS JALUR ANTARKOTA ===");
+                    System.out.print("Masukan jumlah jalur yang ingin dihapus: ");
+                    jumlahEdge = sc.nextInt();
+
+                    for (int i = 0; i < jumlahEdge; i++) {
+                        try {
+                            System.out.print("--- Masukan nama kota awal jalur: ");
+                            namaKotaAwal = br.readLine();
+                            System.out.print("--- Masukan nama kota akhir jalur (tujuan): ");
+                            namaKotaAkhir = br.readLine();
+                            vertexNamaKotaAwal = program.searchVertex(graph, namaKotaAwal);
+                            program.deleteedge(namaKotaAkhir, vertexNamaKotaAwal);
+                            System.out.println();
+                        } catch (Exception e) {
+                            System.out.println("Terjadi kesalahan: " + e);
+                        }
+                    }
+                    break;
+                case 5:
+                    try {
+                        System.out.println("=== HAPUS KOTA DAN JALUR ANTARKOTA ===");
+                        System.out.print("--- Masukan nama kota awal: ");
+                        namaKotaAwal = br.readLine();
+                        vertexNamaKotaAwal = program.searchVertex(graph, namaKotaAwal);
+                        program.deleteAll(vertexNamaKotaAwal);
+                    } catch (Exception e) {
+                        System.out.println("Terjadi kesalahan: " + e);
+                    }
+                    break;
+                case 6:
+                    System.out.println("=== CETAK GRAPH KOTA DENGAN JALUR ANTARKOTA ===");
+                    program.cetakGraph(graph);
+                    break;
+                case 0:
+                    System.out.println("Anda telah keluar");
+                    break;
+                default:
+                    System.out.println("Input salah");
+                    break;
+            }
+        } while (menu >= 1 && menu <= 6);
+
+        sc.close();
+    }
+}

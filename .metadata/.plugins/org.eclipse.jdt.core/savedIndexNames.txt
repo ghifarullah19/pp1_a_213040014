@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+D:\Kuliah\Perkuliahan\Semester 4\IF21W0408 - PP1\pp1_a_213040014\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+1342956424.index
+2953598707.index

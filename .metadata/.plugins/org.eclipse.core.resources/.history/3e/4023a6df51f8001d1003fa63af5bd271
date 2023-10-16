@@ -1,0 +1,59 @@
+package pertemuan10_Stack;
+
+public class StackMain {
+    public static void main(String[] args) {
+        StrukturStack stack = new StrukturStack(3);
+
+        // Latihan 4
+        System.out.println("### Sebelum push 3x ###");
+        System.out.println("size: " + stack.size());
+        System.out.println("isEmpty: " + stack.isEmpty());
+        stack.displayElement();
+
+        // Latihan 4
+        stack.push(3);
+        stack.push(2);
+        stack.push(1);
+
+        // Latihan 4
+        System.out.println("\n### Sesudah push 3x ###");
+        System.out.println("size: " + stack.size());
+        System.out.println("isEmpty: " + stack.isEmpty());
+        stack.displayElement();
+//        System.out.println("Front: " + stack.front());
+
+//        stack = new StrukturStack();
+//
+//        // Latihan 5
+//        System.out.println("### Sebelum push 4x ###");
+//        System.out.println("size: " + stack.size());
+//        System.out.println("isEmpty: " + stack.isEmpty());
+//        stack.displayElement();
+//
+//        // Latihan 5
+//        stack.push(2);
+//        stack.push(7);
+//        stack.push(6);
+//        stack.push(1);
+//
+//        // Latihan 5
+//        System.out.println("\n### Sesudah push 4x ###");
+//        System.out.println("size: " + stack.size());
+//        System.out.println("isEmpty: " + stack.isEmpty());
+//        stack.displayElement();
+//        System.out.println("Front: " + stack.front());
+//
+//        // Tugas
+//        stack.destack();
+//        stack.destack();
+//        stack.destack();
+//        stack.destack();
+//
+//        // Tugas
+//        System.out.println("\n### Sesudah destack 4x ###");
+//        System.out.println("size: " + stack.size());
+//        System.out.println("isEmpty: " + stack.isEmpty());
+//        stack.displayElement();
+//        System.out.println("Front: " + stack.front());
+    }
+}

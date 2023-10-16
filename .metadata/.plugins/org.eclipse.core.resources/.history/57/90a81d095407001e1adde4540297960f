@@ -1,0 +1,218 @@
+package studi_kasus;
+
+public class MainProgram {
+	
+	class Edge {
+	    int cost;
+	    Edge next;
+	    Vertex tujuan;
+	}
+
+	class Vertex {
+	    String idSimpul;
+	    Edge jalur;
+	    Vertex next;
+	}
+
+	class Graph {
+	    Vertex first;
+	}
+
+    void createGraph(Graph G) {
+        G.first = null;
+    }
+
+    void createSimpul(Graph G, String a) {
+        Vertex newVertex = null;
+        newVertex.idSimpul = a;
+        newVertex.jalur = null;
+        newVertex.next = null;
+
+        if (G.first == null) {
+            G.first = newVertex;
+        } else {
+            Vertex akhir = G.first;
+            while (akhir.next != null) {
+                akhir = akhir.next;
+            }
+            akhir.next = newVertex;
+        }
+    }
+
+    void addEdge(Vertex awal, Vertex akhir, int nilaiJalur) {
+        Edge newEdge = null;
+        newEdge.cost = nilaiJalur;
+        newEdge.next = null;
+        newEdge.tujuan = akhir;
+
+        if (awal.jalur == null) {
+            awal.jalur = newEdge;
+        } else {
+            Edge jalurAkhir = awal.jalur;
+            while (jalurAkhir.next != null) {
+                jalurAkhir = jalurAkhir.next;
+            }
+            jalurAkhir.next = newEdge;
+        }
+    }
+
+    void cetakGraph(Graph G) {
+        Vertex tempSimpul = G.first;
+        if (tempSimpul != null) {
+            while (tempSimpul != null) {
+                System.out.printf("\n%s \n", tempSimpul.idSimpul);
+                Edge tempEdge = tempSimpul.jalur;
+
+                while (tempEdge != null) {
+                    System.out.printf("terhubung dengan %s, dengan cost %d\n", tempEdge.tujuan.idSimpul,tempEdge.cost);
+                    tempEdge = tempEdge.next;
+                }
+                tempSimpul = tempSimpul.next;
+            }
+        } else {
+            System.out.printf("Graph Kosong");
+        }
+    }
+
+    Vertex cariVertex(String c, Graph G) {
+        Vertex hasil = null;
+        Vertex bantu = G.first;
+
+        int ketemu = 0;
+        while ((bantu != null) && ketemu == 0) {
+            if (bantu.idSimpul.equals(c)) {
+                hasil = bantu;
+                ketemu = 1;
+            } else {
+                bantu = bantu.next;
+            }
+        }
+        return hasil;
+    }
+
+    void delAll(Vertex awal) {
+        Edge bantu;
+        bantu = awal.jalur;
+        Edge hapus;
+
+        while (bantu != null) {
+            hapus = bantu;
+            bantu = bantu.next;
+            awal.jalur = bantu;
+            hapus.next = null;
+        }
+    }
+
+    void delJalur(String ctujuan, Vertex awal) {
+        Edge hapus = awal.jalur;
+
+        if (hapus != null) {
+            Edge prev = null;
+            int ketemu = 0;
+
+            while ((hapus != null) && (ketemu == 0)) {
+                if (hapus.tujuan.idSimpul.equals(ctujuan)) {
+                    ketemu = 1;
+                } else {
+                    prev = hapus;
+                    hapus = hapus.next;
+                }
+            }
+
+            if (ketemu == 1) {
+                if (prev == null) {
+                    awal.jalur = hapus.next;
+                    hapus.next = null;
+                } else {
+                    prev.next = hapus.next;
+                    hapus.next = null;
+                }
+            }
+        } else {
+            System.out.printf("tidak ada jalur simpul tujuan \n");
+        }
+    }
+
+    void defSimpul(String c, Graph G) {
+        Vertex hapus = G.first;
+
+        if (hapus != null) {
+            Vertex prev = null;
+            int ketemu = 0;
+
+            while ((hapus != null) && (ketemu == 0)) {
+                if (hapus.idSimpul.equals(c)) {
+                    ketemu = 1;
+                } else {
+                    prev = hapus;
+                    hapus = hapus.next;
+                }
+            }
+
+            if (ketemu == 1) {
+                Vertex bantu;
+                bantu = G.first;
+
+                while (bantu != null) {
+                    if (bantu != hapus) {
+                        delJalur(hapus.idSimpul, bantu);
+                    }
+                    bantu = bantu.next;
+                }
+                delAll(hapus);
+
+                if (prev == null) {
+                    G.first = hapus.next;
+                    hapus.next = null;
+                } else {
+                    if (hapus.next == null) {
+                        prev.next = null;
+                    } else {
+                        prev.next = hapus.next;
+                        hapus.next = null;
+                    }
+                }
+            } else {
+                System.out.printf("Tidak ada simpul dengan info karakter masukan\n");
+            }
+        } else {
+            System.out.printf("Tidak ada simpul dengan info karakter masukan\n");
+        }
+    }
+
+    public static void main(String[] args) {
+    	MainProgram graph = new MainProgram();
+        int input;
+        Graph graphSatu = new Graph();
+        Vertex A;
+        graph.createGraph(graphSatu);
+        graph.createSimpul(graphSatu, "Cianjur");
+
+//        graph.createSimpul(graphSatu, "Purwakarta");
+//        graph.createSimpul(graphSatu, "Bandung");
+//        graph.createSimpul(graphSatu, "Subang");
+//        graph.createSimpul(graphSatu, "Majalengka");
+//        graph.createSimpul(graphSatu, "Sumedang");
+//        graph.createSimpul(graphSatu, "Tasikmalaya");
+
+        graph.cariVertex("Cianjur", graphSatu);
+//        B = graph.cariVertex("Purwakarta", graphSatu);
+//        C = graph.cariVertex("Bandung", graphSatu);
+//        D = graph.cariVertex("Subang", graphSatu);
+//        E = graph.cariVertex("Majalengka", graphSatu);
+//        F = graph.cariVertex("Sumedang", graphSatu);
+//        G = graph.cariVertex("Tasikmalaya", graphSatu);
+
+//        graph.addEdge(A, C, 3);
+//        graph.addEdge(B, A, 2);
+//        graph.addEdge(C, B, 1);
+//        graph.addEdge(C, D, 2);
+//        graph.addEdge(D, B, 4);
+//        graph.addEdge(E, D, 3);
+//        graph.addEdge(E, F, 1);
+//        graph.addEdge(E, G, 5);
+//        graph.addEdge(F, G, 2);
+
+        graph.cetakGraph(graphSatu);
+    }
+}

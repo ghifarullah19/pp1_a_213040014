@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 3 elements to &apos;PP1Angkatan2021/src/pertemuan06_List&apos;&#x0D;&#x0A;- Original project: &apos;PP1Angkatan2021&apos;&#x0D;&#x0A;- Destination element: &apos;PP1Angkatan2021/src/pertemuan06_List&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     pertemuan04_List.StrukturList.java&#x0D;&#x0A;     pertemuan04_List.StrukturListTest.java&#x0D;&#x0A;     pertemuan04_List.Node.java" description="Copy compilation units" destination="/src&lt;pertemuan06_List" element1="/src&lt;pertemuan04_List{StrukturList.java" element2="/src&lt;pertemuan04_List{StrukturListTest.java" element3="/src&lt;pertemuan04_List{Node.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1679285196994" units="3" version="1.0"/>
+</session>

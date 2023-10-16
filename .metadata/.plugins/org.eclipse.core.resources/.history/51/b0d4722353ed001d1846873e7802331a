@@ -1,0 +1,41 @@
+package pertemuan08_List;
+
+public class StrukturListTest {
+	public static void main(String[] args) {
+		StrukturList list;
+		
+		System.out.println("Latihan 2");
+		list = new StrukturList();
+		list.addTail(5);
+		list.addTail(4);
+		list.addTail(6);
+		
+		list.displayElement();
+		
+		System.out.println(list.find(6));
+
+		System.out.println("Latihan 4");
+		list = new StrukturList();
+		list.addHead(7);
+		list.addTail(6);
+		list.addTail(4);
+		list.addTail(2);
+		list.addTail(3);
+		
+		list.displayElement();
+		
+		System.out.println(list.size());
+		
+		System.out.println("Latihan 5");
+		list = new StrukturList();
+		list.addHead(4);
+		list.addTail(3);
+		list.addTail(7);
+		list.addTail(8);
+		list.addTail(1);
+		list.addTail(9);
+		list.displayElement();
+		list.removeAll();
+		list.displayElement();
+    }
+}
